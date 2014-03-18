@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+	<!-- <properties url="file://your.properties"/> -->
+	<properties resource="mbg_config.properties" />
+
+	<classPathEntry location="${jdbc.classPath}" />
+
+	<!--targetRuntime 此属性用于指定生成的代码的运行目标。 -->
+	<context id="mysql_context" defaultModelType="conditional"
+		targetRuntime="MyBatis3">
+
+		<plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
+		<!-- 用于替换掉所有example -->
+		<plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
+			<property name="searchString" value="Example$" />
+			<property name="replaceString" value="Criteria" />
+		</plugin>
+		<!-- 开启注释 -->
+		<commentGenerator>
+			<property name="suppressAllComments" value="false" />
+			<property name="suppressDate" value="false" />
+		</commentGenerator>
+
+		<!-- 数据库连接 -->
+		<!-- connectionURL="jdbc:oracle:thin:@127.0.0.1:1521:orcl" userId="orcl" 
+			password="orcl"> -->
+		<jdbcConnection driverClass="${jdbc.driverClass}"
+			connectionURL="${jdbc.connectionURL}" userId="${jdbc.user}" password="${jdbc.password}" />
+
+		<!--允许数值类型转换成不同类型,否则都映射为BigDecimal -->
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<!-- 模型文件 -->
+		<javaModelGenerator targetPackage="${modelPackage}"
+			targetProject="${prefix.targetProject}/java">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<!-- XML映射文件 -->
+		<sqlMapGenerator targetPackage="${modelPackage}"
+			targetProject="${prefix.targetProject}/resources">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+
+		<!-- DAO文件(mapper接口) -->
+		<javaClientGenerator targetPackage="${modelPackage}"
+			targetProject="${prefix.targetProject}/java" type="XMLMAPPER">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+
+
+		<!-- 数据库表 -->
+		<!-- <table tableName="T_USER" domainObjectName="User"> <property name="useActualColumnNames" 
+			value="false" /> -->
+		<!-- <generatedKey column="ID" sqlStatement="DB2" identity="true" /> <columnOverride 
+			column="DATE_FIELD" property="startDate" /> <ignoreColumn column="FRED" /> 
+			<columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" /> -->
+		<!-- </table> -->
+
+		<table tableName="test" domainObjectName="Test">
+			<!-- useActualColumnNames属性是为了使生成的model字段与数据库的字段大小写不一致 -->
+			<property name="useActualColumnNames" value="false" />
+		</table>
+
+		<table tableName="user" domainObjectName="User">
+			<!-- useActualColumnNames属性是为了使生成的model字段与数据库的字段大小写不一致 -->
+			<property name="useActualColumnNames" value="false" />
+		</table>
+
+		<!-- <table schema="???" tableName="???"> <columnOverride column="???" 
+			property="???" /> </table> -->
+	</context>
+</generatorConfiguration>
